@@ -1,18 +1,23 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
-import UserDashboard from "./pages/UserDashboard";
-import Navbar from "./components/Navbar";
+import RegisterPage from "./pages/RegisterPage";
 
-const App = () => (
-  <Router>
-    <Navbar />
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/dashboard" element={<UserDashboard />} />
-    </Routes>
-  </Router>
-);
+function App() {
+  return (
+    <Router>
+      <div className="min-h-screen bg-background text-foreground">
+        <Header />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
 export default App;
