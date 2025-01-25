@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
-import LoanCalculator from "../components/LoanCalculator";
+import LoanCalculator from "../components/Loan-categories";
 
 const LandingPage = () => {
   return (
@@ -44,7 +44,7 @@ const LandingPage = () => {
             </li>
           </ul>
           <Button asChild className="mt-4">
-            <Link to="/apply">Apply for a Loan</Link>
+            <Link to="/apply">Apply</Link>
           </Button>
         </div>
         <LoanCalculator />
