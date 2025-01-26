@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useRouter } from "next/navigation";
 
 const categories = {
   "Wedding Loans": {
@@ -45,7 +44,6 @@ const categories = {
 };
 
 export function LoanCalculator() {
-  const router = useRouter();
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [amount, setAmount] = useState("");

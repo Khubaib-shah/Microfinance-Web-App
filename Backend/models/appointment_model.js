@@ -1,6 +1,7 @@
 // appointment_model.js
 
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const { Schema } = mongoose;
 

@@ -1,5 +1,6 @@
 // Users Model for MongoDB using Mongoose
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 // Define the schema for the Users collection
 const userSchema = new mongoose.Schema({
