@@ -12,6 +12,7 @@ const LandingPage = () => {
       <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
         Welcome to Saylani Microfinance
       </h1>
+
       <Hero />
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Loan Categories Section */}

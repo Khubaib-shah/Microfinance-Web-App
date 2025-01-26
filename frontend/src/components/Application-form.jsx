@@ -14,10 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function ApplicationForm() {
-  // const searchParams = useSearchParams();
-  // const category = searchParams.get("category");
-  // const subcategory = searchParams.get("subcategory");
-  // const amount = searchParams.get("amount");
   const [step, setStep] = useState(1);
 
   const handleSubmit = async (e) => {

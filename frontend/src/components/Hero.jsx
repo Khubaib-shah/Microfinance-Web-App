@@ -16,7 +16,7 @@ export function Hero() {
             </p>
           </div>
           <div className="space-x-4">
-            <Link href="/apply">
+            <Link to="/apply">
               <Button size="lg">Apply Now</Button>
             </Link>
             <Link href="#calculator">

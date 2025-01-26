@@ -19,6 +19,11 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/", (req, res) => {
+  res.json({
+    message: "Api is ok",
+  });
+});
 app.use("/api/admins", adminRoutes);
 app.use("/api/guarantor", guarantorRoutes);
 app.use("/api/appointment", appointmentRoutes);
