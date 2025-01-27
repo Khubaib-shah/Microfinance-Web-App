@@ -19,16 +19,12 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/", (req, res) => {
-  res.json({
-    message: "Api is ok",
-  });
-});
 app.use("/api/admin", adminRoutes);
 app.use("/api/guarantor", guarantorRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/loan", loanRoutes);
 app.use("/api/user", userRoutes);
+app.use("/", (req, res) => res.json({ message: "Api is ok" }));
 
 // Start Server
 const PORT = process.env.PORT || 5000;

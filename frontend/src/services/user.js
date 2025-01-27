@@ -1,6 +1,5 @@
 import API_BASE_URL from "@/config/apiConfig";
 import axios from "axios";
-import dotenv from "dotenv";
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -11,7 +10,10 @@ const apiClient = axios.create({
 
 export const CreateUser = async (formData) => {
   try {
-    await apiClient.post("/api/user/users", formData);
+    const { data } = await axios.get(
+      "https://smit-final-hackathon-backend-steel.vercel.app/api/user/users"
+    );
+    console.log(data);
   } catch (error) {
     console.error("Error fetching items:", error);
     throw error;

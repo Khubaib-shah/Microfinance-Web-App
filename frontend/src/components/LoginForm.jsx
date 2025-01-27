@@ -13,7 +13,7 @@ import { CreateUser } from "@/services/user";
 import { useEffect, useState } from "react";
 
 export function LoginForm() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState([{}]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,18 +66,9 @@ export function LoginForm() {
           </div>
         </CardContent>
         <CardFooter>
-          <div className="flex w-full justify-between">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setStep(step - 1)}
-            >
-              Previous
-            </Button>
-            <Button type="submit" className="ml-auto">
-              Login
-            </Button>
-          </div>
+          <Button type="submit" className="ml-auto">
+            Login
+          </Button>
         </CardFooter>
       </form>
     </Card>
