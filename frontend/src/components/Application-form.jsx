@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,10 +13,38 @@ import { Label } from "@/components/ui/label";
 
 export function ApplicationForm() {
   const [step, setStep] = useState(1);
+  const category = ["wedding", "home cuntruction"];
+  const subcategory = ["Valima", "Furniture", "Valima Food", "Jahez"];
+  const amount = [2, 23, 234, 234, 234];
+  // const categories = [
+  //   {
+  //     title: "Wedding Loans",
+  //     description: "Up to PKR 5 Lakh for 3 years",
+  //     icon: PartyPopper,
+  //     subcategories: ["Valima", "Furniture", "Valima Food", "Jahez"],
+  //   },
+  //   {
+  //     title: "Home Construction",
+  //     description: "Up to PKR 10 Lakh for 5 years",
+  //     icon: Home,
+  //     subcategories: ["Structure", "Finishing", "Loan"],
+  //   },
+  //   {
+  //     title: "Business Startup",
+  //     description: "Up to PKR 10 Lakh for 5 years",
+  //     icon: Building2,
+  //     subcategories: ["Buy Stall", "Advance Rent", "Shop Assets", "Machinery"],
+  //   },
+  //   {
+  //     title: "Education Loans",
+  //     description: "Based on requirement for 4 years",
+  //     icon: GraduationCap,
+  //     subcategories: ["University Fees", "Child Fees Loan"],
+  //   },
+  // ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
     setStep(step + 1);
   };
 

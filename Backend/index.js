@@ -24,7 +24,7 @@ app.use("/", (req, res) => {
     message: "Api is ok",
   });
 });
-app.use("/api/admins", adminRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/guarantor", guarantorRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/loan", loanRoutes);

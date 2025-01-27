@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { Navigation } from "./components/Navigation";
-import { ApplicationForm } from "./components/Application-form";
 import ApplyPage from "./pages/ApplyPage";
+import axios from "axios";
 
 function App() {
   return (

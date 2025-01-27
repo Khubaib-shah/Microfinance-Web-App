@@ -25,6 +25,7 @@ const loanSchema = new Schema({
     type: Number,
     required: true,
     min: 0,
+    max: 1000000,
   },
   initialDeposit: {
     type: Number,
@@ -49,16 +50,6 @@ const loanSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-});
-
-// Middleware to update the updatedAt field before each save operation
-loanSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-  }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
 });
 
 // Create the model
