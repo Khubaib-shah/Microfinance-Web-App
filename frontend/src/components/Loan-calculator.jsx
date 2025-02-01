@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Link, useNavigate } from "react-router-dom";
 
 const categories = {
   "Wedding Loans": {
@@ -49,9 +50,9 @@ export function LoanCalculator() {
   const [amount, setAmount] = useState("");
   const [deposit, setDeposit] = useState("");
   const [period, setPeriod] = useState("");
-
-  const handleProceed = () => {
-    router.push(
+  const navigate = useNavigate();
+  const handleProceed = async () => {
+    navigate(
       `/apply?category=${category}&subcategory=${subcategory}&amount=${amount}`
     );
   };
@@ -59,7 +60,7 @@ export function LoanCalculator() {
   const selectedCategory = category ? categories[category] : null;
 
   return (
-    <Card className="w-full">
+    <Card className="w-full" id="calculator-section">
       <CardHeader>
         <CardTitle>Calculate Your Loan</CardTitle>
         <CardDescription>
@@ -154,7 +155,7 @@ export function LoanCalculator() {
             <p className="text-sm text-muted-foreground">
               Monthly Payment: PKR{" "}
               {Math.round(
-                (Number(amount) - Number(deposit)) / (Number(period) * 12)
+                (Number(amount) - Number(deposit)) / Number(period)
               ).toLocaleString()}
             </p>
             <p className="text-sm text-muted-foreground">

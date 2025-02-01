@@ -32,7 +32,7 @@ router.get("/guarantors", async (req, res) => {
     const guarantors = await Guarantor.find().populate(
       "loanId",
       "amount status"
-    ); // You can customize the fields you want to show from the Loan model.
+    );
     res.status(200).json(guarantors);
   } catch (error) {
     console.error(error);

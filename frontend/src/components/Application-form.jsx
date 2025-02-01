@@ -8,44 +8,52 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useSearchParams } from "react-router-dom";
+import UserInfoForm from "./ApplicationForm/UserInfoForm";
+import GuarantorInfoForm from "./ApplicationForm/GuarantorInfoForm";
+import ReviewApplication from "./ApplicationForm/ReviewApplication";
 
 export function ApplicationForm() {
   const [step, setStep] = useState(1);
-  const category = ["wedding", "home cuntruction"];
-  const subcategory = ["Valima", "Furniture", "Valima Food", "Jahez"];
-  const amount = [2, 23, 234, 234, 234];
-  // const categories = [
-  //   {
-  //     title: "Wedding Loans",
-  //     description: "Up to PKR 5 Lakh for 3 years",
-  //     icon: PartyPopper,
-  //     subcategories: ["Valima", "Furniture", "Valima Food", "Jahez"],
-  //   },
-  //   {
-  //     title: "Home Construction",
-  //     description: "Up to PKR 10 Lakh for 5 years",
-  //     icon: Home,
-  //     subcategories: ["Structure", "Finishing", "Loan"],
-  //   },
-  //   {
-  //     title: "Business Startup",
-  //     description: "Up to PKR 10 Lakh for 5 years",
-  //     icon: Building2,
-  //     subcategories: ["Buy Stall", "Advance Rent", "Shop Assets", "Machinery"],
-  //   },
-  //   {
-  //     title: "Education Loans",
-  //     description: "Based on requirement for 4 years",
-  //     icon: GraduationCap,
-  //     subcategories: ["University Fees", "Child Fees Loan"],
-  //   },
-  // ];
+  const [searchParams] = useSearchParams();
+
+  const category = searchParams.get("category");
+  const subcategory = searchParams.get("subcategory");
+  const amount = searchParams.get("amount");
+
+  const [formData, setFormData] = useState({
+    user: { name: "", cnic: "", email: "", phone: "", address: "" },
+    guarantors: [
+      { name: "", cnic: "", email: "" },
+      { name: "", cnic: "", email: "" },
+    ],
+    category,
+    subcategory,
+    amount,
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStep(step + 1);
+    if (step < 3) {
+      setStep(step + 1);
+      return;
+    }
+    try {
+      const response = await fetch("https://localhost:4000/api/loan/loans", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        alert("Application submitted successfully!");
+        setStep(1);
+      } else {
+        alert("Failed to submit application. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -61,122 +69,12 @@ export function ApplicationForm() {
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           {step === 1 && (
-            <>
-              <div className="space-y-2">
-                <Label htmlFor="cnic">CNIC Number</Label>
-                <Input id="cnic" required placeholder="Enter CNIC number" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  placeholder="Enter email address"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input id="name" required placeholder="Enter full name" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" required placeholder="Enter phone number" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="address">Address</Label>
-                <Input id="address" required placeholder="Enter address" />
-              </div>
-            </>
+            <UserInfoForm formData={formData} setFormData={setFormData} />
           )}
-
           {step === 2 && (
-            <>
-              <div className="rounded-lg bg-muted p-4">
-                <h3 className="mb-2 font-semibold">Loan Details</h3>
-                <p className="text-sm">Category: {category}</p>
-                <p className="text-sm">Subcategory: {subcategory}</p>
-                <p className="text-sm">
-                  Amount: PKR {Number(amount).toLocaleString()}
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="font-semibold">First Guarantor</h3>
-                <div className="space-y-2">
-                  <Label htmlFor="g1-name">Name</Label>
-                  <Input id="g1-name" required placeholder="Guarantor name" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="g1-cnic">CNIC</Label>
-                  <Input id="g1-cnic" required placeholder="Guarantor CNIC" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="g1-email">Email</Label>
-                  <Input
-                    id="g1-email"
-                    type="email"
-                    required
-                    placeholder="Guarantor email"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="font-semibold">Second Guarantor</h3>
-                <div className="space-y-2">
-                  <Label htmlFor="g2-name">Name</Label>
-                  <Input id="g2-name" required placeholder="Guarantor name" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="g2-cnic">CNIC</Label>
-                  <Input id="g2-cnic" required placeholder="Guarantor CNIC" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="g2-email">Email</Label>
-                  <Input
-                    id="g2-email"
-                    type="email"
-                    required
-                    placeholder="Guarantor email"
-                  />
-                </div>
-              </div>
-            </>
+            <GuarantorInfoForm formData={formData} setFormData={setFormData} />
           )}
-
-          {step === 3 && (
-            <div className="space-y-4">
-              <div className="rounded-lg bg-muted p-4">
-                <h3 className="mb-4 font-semibold">Application Summary</h3>
-                <div className="space-y-2">
-                  <p className="text-sm">
-                    <span className="font-medium">Loan Category:</span>{" "}
-                    {category}
-                  </p>
-                  <p className="text-sm">
-                    <span className="font-medium">Subcategory:</span>{" "}
-                    {subcategory}
-                  </p>
-                  <p className="text-sm">
-                    <span className="font-medium">Amount:</span> PKR{" "}
-                    {Number(amount).toLocaleString()}
-                  </p>
-                </div>
-              </div>
-              <div className="rounded-lg border p-4">
-                <h4 className="mb-2 font-medium">Next Steps:</h4>
-                <ol className="list-inside list-decimal space-y-2 text-sm text-muted-foreground">
-                  <li>You will receive an email with your login credentials</li>
-                  <li>Log in to generate your appointment slip</li>
-                  <li>
-                    Visit our office with the printed slip and required
-                    documents
-                  </li>
-                </ol>
-              </div>
-            </div>
-          )}
+          {step === 3 && <ReviewApplication formData={formData} />}
         </CardContent>
         <CardFooter>
           <div className="flex w-full justify-between">
@@ -198,3 +96,5 @@ export function ApplicationForm() {
     </Card>
   );
 }
+
+export default ApplicationForm;

@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
-export function Hero() {
+export function Hero({ scrollToCalculator }) {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container px-4 md:px-6">
@@ -16,14 +15,14 @@ export function Hero() {
             </p>
           </div>
           <div className="space-x-4">
-            <Link to="/apply">
-              <Button size="lg">Apply Now</Button>
-            </Link>
-            <Link href="#calculator">
-              <Button variant="outline" size="lg">
-                Calculate Loan
-              </Button>
-            </Link>
+            <Button size="lg">Apply Now</Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => (window.location.hash = "#calculator-section")}
+            >
+              Calculate Loan
+            </Button>
           </div>
         </div>
       </div>

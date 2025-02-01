@@ -6,23 +6,35 @@ const router = express.Router();
 // 1. Create a new loan
 router.post("/loans", async (req, res) => {
   try {
-    const {
-      userId,
-      category,
-      subcategory,
-      amount,
-      initialDeposit,
-      loanPeriod,
-      status,
-    } = req.body;
+    const { user, category, subcategory, amount, guarantors, status } =
+      req.body;
+
+    // Validate the input
+    if (
+      !user ||
+      !user.name ||
+      !user.cnic ||
+      !user.email ||
+      !user.phone ||
+      !user.address
+    ) {
+      return res.status(400).json({ message: "User details are required" });
+    }
+    if (!category || !subcategory || !amount) {
+      return res.status(400).json({ message: "Loan details are required" });
+    }
+    if (!Array.isArray(guarantors) || guarantors.length !== 2) {
+      return res
+        .status(400)
+        .json({ message: "Exactly two guarantors are required" });
+    }
 
     const newLoan = new Loan({
-      userId,
+      user,
       category,
       subcategory,
       amount,
-      initialDeposit,
-      loanPeriod,
+      guarantors,
       status,
     });
 
@@ -39,7 +51,7 @@ router.post("/loans", async (req, res) => {
 // 2. Get all loans
 router.get("/loans", async (req, res) => {
   try {
-    const loans = await Loan.find().populate("userId", "name email"); // You can customize the fields you want to show from the User model.
+    const loans = await Loan.find();
     res.status(200).json(loans);
   } catch (error) {
     console.error(error);
@@ -50,12 +62,10 @@ router.get("/loans", async (req, res) => {
 // 3. Get a single loan by ID
 router.get("/loans/:id", async (req, res) => {
   try {
-    const loan = await Loan.findById(req.params.id).populate("userId");
-
+    const loan = await Loan.findById(req.params.id);
     if (!loan) {
       return res.status(404).json({ message: "Loan not found" });
     }
-
     res.status(200).json(loan);
   } catch (error) {
     console.error(error);
@@ -66,23 +76,17 @@ router.get("/loans/:id", async (req, res) => {
 // 4. Update a loan by ID
 router.put("/loans/:id", async (req, res) => {
   try {
-    const {
-      category,
-      subcategory,
-      amount,
-      initialDeposit,
-      loanPeriod,
-      status,
-    } = req.body;
+    const { user, category, subcategory, amount, guarantors, status } =
+      req.body;
 
     const updatedLoan = await Loan.findByIdAndUpdate(
       req.params.id,
       {
+        user,
         category,
         subcategory,
         amount,
-        initialDeposit,
-        loanPeriod,
+        guarantors,
         status,
         updatedAt: Date.now(),
       },
@@ -106,7 +110,6 @@ router.put("/loans/:id", async (req, res) => {
 router.delete("/loans/:id", async (req, res) => {
   try {
     const deletedLoan = await Loan.findByIdAndDelete(req.params.id);
-
     if (!deletedLoan) {
       return res.status(404).json({ message: "Loan not found" });
     }

@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Building2, GraduationCap, Home, PartyPopper } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const categories = [
   {
@@ -41,7 +42,10 @@ export function LoanCategories() {
         <h2 className="mb-12 text-center text-3xl font-bold">
           Loan Categories
         </h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <Link
+          to={"/apply"}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
           {categories.map((category) => (
             <Card
               key={category.title}
@@ -63,7 +67,7 @@ export function LoanCategories() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </Link>
       </div>
     </section>
   );

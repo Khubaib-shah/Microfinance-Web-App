@@ -10,33 +10,71 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CreateUser } from "@/services/user";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 export function LoginForm() {
-  const [formData, setFormData] = useState([{}]);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [formData, setFormData] = useState({
+    cnic: "",
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    address: "",
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await CreateUser(formData);
+      console.log("User created successfully:", formData);
+    } catch (error) {
+      let ErrorMessage = error.response.data.error;
+      if (ErrorMessage.includes("email")) {
+        setErrorMessage("User with this email is already register");
+        setError(true);
+      }
+      console.error("Error creating user:", error);
+    }
   };
-  useEffect(() => {
-    CreateUser(formData);
-  }, []);
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Login</CardTitle>
+        <CardTitle>Register</CardTitle>
         <CardDescription>Please provide your basic information</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="cnic">CNIC Number</Label>
-            <Input id="cnic" required placeholder="Enter CNIC number" />
+            <Input
+              id="cnic"
+              required
+              placeholder="Enter CNIC number"
+              value={formData.cnic}
+              onChange={handleChange}
+            />
           </div>
-
           <div className="space-y-2">
             <Label htmlFor="name">Full Name</Label>
-            <Input id="name" required placeholder="Enter full name" />
+            <Input
+              id="name"
+              required
+              placeholder="Enter full name"
+              value={formData.name}
+              onChange={handleChange}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email Address</Label>
@@ -45,6 +83,8 @@ export function LoginForm() {
               type="email"
               required
               placeholder="Enter email address"
+              value={formData.email}
+              onChange={handleChange}
             />
           </div>
           <div className="space-y-2">
@@ -53,21 +93,37 @@ export function LoginForm() {
               id="password"
               type="password"
               required
-              placeholder="Enter password address"
+              placeholder="Enter password"
+              value={formData.password}
+              onChange={handleChange}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="phone">Phone Number</Label>
-            <Input id="phone" required placeholder="Enter phone number" />
+            <Input
+              id="phone"
+              required
+              placeholder="Enter phone number"
+              value={formData.phone}
+              onChange={handleChange}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="address">Address</Label>
-            <Input id="address" required placeholder="Enter address" />
+            <Input
+              id="address"
+              required
+              placeholder="Enter address"
+              value={formData.address}
+              onChange={handleChange}
+            />
           </div>
         </CardContent>
         <CardFooter>
+          {error && <CardDescription>{errorMessage}</CardDescription>}
+
           <Button type="submit" className="ml-auto">
-            Login
+            Register
           </Button>
         </CardFooter>
       </form>

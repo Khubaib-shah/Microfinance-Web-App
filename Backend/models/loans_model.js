@@ -1,15 +1,14 @@
-// loans_model.js
-import bcrypt from "bcryptjs";
-
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 // Define the schema for the Loans collection
 const loanSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+  user: {
+    name: { type: String, required: true, trim: true },
+    cnic: { type: String, required: true, unique: true, trim: true },
+    email: { type: String, required: true, trim: true },
+    phone: { type: String, required: true, trim: true },
+    address: { type: String, required: true, trim: true },
   },
   category: {
     type: String,
@@ -27,16 +26,13 @@ const loanSchema = new Schema({
     min: 0,
     max: 1000000,
   },
-  initialDeposit: {
-    type: Number,
-    required: true,
-    min: 0,
-  },
-  loanPeriod: {
-    type: Number,
-    required: true,
-    min: 1,
-  },
+  guarantors: [
+    {
+      name: { type: String, required: true, trim: true },
+      cnic: { type: String, required: true, trim: true },
+      email: { type: String, required: true, trim: true },
+    },
+  ],
   status: {
     type: String,
     enum: ["Pending", "Approved", "Rejected"],

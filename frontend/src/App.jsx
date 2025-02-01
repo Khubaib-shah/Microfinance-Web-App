@@ -5,7 +5,6 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { Navigation } from "./components/Navigation";
 import ApplyPage from "./pages/ApplyPage";
-import axios from "axios";
 
 function App() {
   return (

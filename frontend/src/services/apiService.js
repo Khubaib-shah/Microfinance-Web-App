@@ -21,7 +21,7 @@ const apiClient = axios.create({
 
 export const getItems = async () => {
   try {
-    const { data } = await apiClient.get("/api/user");
+    const { data } = await apiClient.get("/api/loan/loans");
     return data;
   } catch (error) {
     console.error("Error fetching items:", error);

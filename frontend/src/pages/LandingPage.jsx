@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { LoanCategories } from "@/components/Loan-categories";
@@ -7,13 +7,19 @@ import { LoanCalculator } from "@/components/Loan-calculator";
 import { Features } from "@/components/Features";
 
 const LandingPage = () => {
+  const calculatorRef = useRef(null);
+  const scrollToCalculator = () => {
+    if (calculatorRef.current) {
+      calculatorRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
         Welcome to Saylani Microfinance
       </h1>
 
-      <Hero />
+      <Hero onClick={scrollToCalculator} />
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Loan Categories Section */}
         <div className="bg-white shadow-lg rounded-lg p-6 md:col-span-1">
