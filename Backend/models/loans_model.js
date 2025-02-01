@@ -33,6 +33,11 @@ const loanSchema = new Schema({
       email: { type: String, required: true, trim: true },
     },
   ],
+  complainId: {
+    type: Number,
+    required: true,
+  },
+
   status: {
     type: String,
     enum: ["Pending", "Approved", "Rejected"],
