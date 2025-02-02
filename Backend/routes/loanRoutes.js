@@ -6,8 +6,15 @@ const router = express.Router();
 // 1. Create a new loan
 router.post("/loans", async (req, res) => {
   try {
-    const { user, category, subcategory, amount, guarantors, status } =
-      req.body;
+    const {
+      user,
+      category,
+      subcategory,
+      amount,
+      guarantors,
+      complainId,
+      status,
+    } = req.body;
 
     // Validate the input
     if (
@@ -16,7 +23,8 @@ router.post("/loans", async (req, res) => {
       !user.cnic ||
       !user.email ||
       !user.phone ||
-      !user.address
+      !user.address ||
+      complainId
     ) {
       return res.status(400).json({ message: "User details are required" });
     }
