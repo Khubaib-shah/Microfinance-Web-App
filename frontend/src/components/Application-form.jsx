@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,14 +13,17 @@ import UserInfoForm from "./ApplicationForm/UserInfoForm";
 import GuarantorInfoForm from "./ApplicationForm/GuarantorInfoForm";
 import ReviewApplication from "./ApplicationForm/ReviewApplication";
 import { CreateLoan } from "@/services/user";
+import { useToast } from "@/hooks/use-toast";
 
 export function ApplicationForm() {
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [searchParams] = useSearchParams();
 
   const category = searchParams.get("category");
   const subcategory = searchParams.get("subcategory");
   const amount = searchParams.get("amount");
+  const [Loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     user: { name: "", cnic: "", email: "", phone: "", address: "" },
     guarantors: [
@@ -37,28 +40,43 @@ export function ApplicationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Generate a unique 6-digit complainId
-    const complainId = Math.floor(100000 + Math.random() * 900000);
-
-    // Update formData with the generated complainId
-    const updatedFormData = { ...formData, complainId };
-
     if (step < 3) {
       setStep(step + 1);
       return;
     }
 
     try {
-      const response = await CreateLoan(updatedFormData);
-      if (response.ok) {
-        alert("Application submitted successfully!");
-        setStep(1);
-      } else {
-        alert("Failed to submit application. Please try again.");
-      }
+      setLoading(true);
+      await CreateLoan(formData);
+      toast({
+        title: "Application Submitted",
+        description: "Your loan application has been submitted successfully.",
+      });
+
+      setLoading(false);
+      setStep(1);
+      setFormData({
+        user: { name: "", cnic: "", email: "", phone: "", address: "" },
+        guarantors: [
+          { name: "", cnic: "", email: "" },
+          { name: "", cnic: "", email: "" },
+        ],
+        category,
+        subcategory,
+        amount,
+        complainId: "",
+      });
     } catch (error) {
-      console.error("Error submitting application:", error);
-      alert("An error occurred. Please try again.");
+      setLoading(false);
+      if (error.response.data.error.includes("E11000")) {
+        toast({
+          title: "Duplicate Application Detected",
+          description:
+            "It appears you've already submitted a loan application with these details. Please check your application status or contact support for assistance.",
+        });
+      } else {
+        console.error("Error submitting application:", error);
+      }
     }
   };
 
@@ -93,8 +111,12 @@ export function ApplicationForm() {
                 Previous
               </Button>
             )}
-            <Button type="submit" className="ml-auto">
-              {step === 3 ? "Submit Application" : "Next"}
+            <Button type="submit" className="ml-auto" disabled={Loading}>
+              {Loading
+                ? "Application Submitting..."
+                : step === 3
+                ? "Submit Application"
+                : "Next"}
             </Button>
           </div>
         </CardFooter>

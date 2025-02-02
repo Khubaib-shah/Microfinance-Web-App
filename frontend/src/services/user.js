@@ -25,10 +25,11 @@ export const CreateUser = async (formData) => {
   }
 };
 export const CreateLoan = async (formData) => {
+  console.log(formData.complainId);
   try {
     const response = await apiClient.post("/api/loan/loans", formData);
     console.log("Loan submitted successfully:", response.data);
-    return response.data;
+    return response.data.complainId;
   } catch (error) {
     console.error(
       "Error creating user:",

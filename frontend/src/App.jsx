@@ -4,6 +4,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { Navigation } from "./components/Navigation";
 import ApplyPage from "./pages/ApplyPage";
+import { Toaster } from "@/components/ui/toaster";
+import DashboardPage from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/apply" element={<ApplyPage />} />
+          <Route path="/admin" element={<DashboardPage />} />
         </Routes>
+        <Toaster />
       </div>
     </Router>
   );

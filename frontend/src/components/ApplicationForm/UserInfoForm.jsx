@@ -1,26 +1,40 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Hash } from "lucide-react";
 
 const UserInfoForm = ({ formData, setFormData }) => {
+  const complainId = Math.floor(100000 + Math.random() * 900000);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       user: { ...formData.user, [e.target.name]: e.target.value },
+      complainId,
     });
   };
 
   return (
     <div className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="name">Full Name</Label>
-        <Input
-          id="name"
-          name="name"
-          required
-          placeholder="Enter full name"
-          value={formData.user.name}
-          onChange={handleChange}
-        />
+      <div className="relative">
+        {formData.user.address && (
+          <div className="absolute flex items-center  gap-1 right-0">
+            <Hash className="h-4 w-4" />
+            <p className="text-sm flex items-center gap-1">Ticket</p>
+            <p className="font-medium">{complainId}</p>
+          </div>
+        )}
+        <div className="space-y-2 flex-1">
+          <Label htmlFor="name">Full Name</Label>
+
+          <Input
+            id="name"
+            name="name"
+            required
+            placeholder="Enter full name"
+            value={formData.user.name}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <div className="space-y-2">
         <Label htmlFor="cnic">CNIC Number</Label>
