@@ -21,6 +21,12 @@ export function Navigation() {
           >
             Login
           </Link>
+          <Link
+            to="/admin"
+            className="transition-colors hover:text-foreground/80"
+          >
+            Login
+          </Link>
         </nav>
       </div>
     </header>

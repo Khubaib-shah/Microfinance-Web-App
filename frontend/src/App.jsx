@@ -6,6 +6,8 @@ import { Navigation } from "./components/Navigation";
 import ApplyPage from "./pages/ApplyPage";
 import { Toaster } from "@/components/ui/toaster";
 import DashboardPage from "./pages/AdminDashboard";
+// import { ApplicationsTable } from "./components/ApplicationsTable";
+// import Applications from "./pages/Applications";
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/apply" element={<ApplyPage />} />
+          {/* <Route path="/application" element={<Applications />} /> */}
           <Route path="/admin" element={<DashboardPage />} />
+          {/* <Route path="/appointments" element={<ApplicationsTable />} /> */}
         </Routes>
         <Toaster />
       </div>
