@@ -35,6 +35,7 @@ router.post("/loans", async (req, res) => {
       subcategory,
       amount,
       guarantors,
+      complainId,
       status,
     });
 
@@ -87,6 +88,7 @@ router.put("/loans/:id", async (req, res) => {
         subcategory,
         amount,
         guarantors,
+        complainId,
         status,
         updatedAt: Date.now(),
       },
