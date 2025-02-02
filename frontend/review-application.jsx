@@ -1,21 +1,32 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import {
-  User,
-  Wallet,
-  UserCheck,
-  Phone,
-  Mail,
-  CreditCard,
-  MapPin,
-  Hash,
-} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
+import { User, Wallet, UserCheck, Phone, Mail, CreditCard, MapPin } from "lucide-react"
 
-const ReviewApplication = ({ formData }) => {
-  console.log(formData.complainId);
+const ReviewApplication = ({ formData = {} }) => {
+  const randomNumber = Math.floor(10000 * Math.random() * 90000)
+
+  // Default values for user data
+  const userData = formData.user || {
+    name: "",
+    cnic: "",
+    email: "",
+    phone: "",
+    address: "",
+  }
+
+  // Default values for loan details
+  const loanData = {
+    category: formData.category || "",
+    subcategory: formData.subcategory || "",
+    amount: formData.amount || 0,
+  }
+
+  // Default values for guarantors
+  const guarantors = formData.guarantors || []
+
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    (<Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-xl">
           <CreditCard className="h-5 w-5" />
@@ -33,36 +44,29 @@ const ReviewApplication = ({ formData }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Full Name</p>
-              <p className="font-medium">{formData.user?.name}</p>
+              <p className="font-medium">{userData.name}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-muted-foreground flex items-center gap-1">
-                <Hash className="h-4 w-4" />
-                Ticket
-              </p>
-              <p className="font-medium">{formData.complainId}</p>
+              <p className="text-sm text-muted-foreground">CNIC</p>
+              <p className="font-medium">{userData.cnic}</p>
             </div>
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground flex items-center gap-1">
                 <Mail className="h-4 w-4" /> Email
               </p>
-              <p className="font-medium">{formData.user?.email}</p>
+              <p className="font-medium">{userData.email}</p>
             </div>
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground flex items-center gap-1">
                 <Phone className="h-4 w-4" /> Phone
               </p>
-              <p className="font-medium">{formData.user?.phone}</p>
+              <p className="font-medium">{userData.phone}</p>
             </div>
-            <div className="space-y-1">
-              <p className="text-sm text-muted-foreground">CNIC</p>
-              <p className="font-medium">{formData.user?.cnic}</p>
-            </div>
-            <div className="space-y-1">
+            <div className="space-y-1 md:col-span-2">
               <p className="text-sm text-muted-foreground flex items-center gap-1">
                 <MapPin className="h-4 w-4" /> Address
               </p>
-              <p className="font-medium">{formData.user?.address}</p>
+              <p className="font-medium">{userData.address}</p>
             </div>
           </div>
         </div>
@@ -78,20 +82,18 @@ const ReviewApplication = ({ formData }) => {
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Category</p>
               <Badge variant="secondary" className="font-medium">
-                {formData.category}
+                {loanData.category || "N/A"}
               </Badge>
             </div>
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Subcategory</p>
               <Badge variant="outline" className="font-medium">
-                {formData.subcategory}
+                {loanData.subcategory || "N/A"}
               </Badge>
             </div>
             <div className="space-y-1 md:col-span-2">
               <p className="text-sm text-muted-foreground">Amount</p>
-              <p className="text-xl font-semibold text-primary">
-                PKR {formData.amount}
-              </p>
+              <p className="text-xl font-semibold text-primary">PKR {loanData.amount.toLocaleString()}</p>
             </div>
           </div>
         </div>
@@ -104,34 +106,36 @@ const ReviewApplication = ({ formData }) => {
           </div>
           <Separator />
           <div className="grid gap-4">
-            {formData.guarantors.map((guarantor, index) => (
-              <Card key={index} className="bg-muted/50">
-                <CardContent className="pt-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-muted-foreground">Name</p>
-                      <p className="font-medium">{guarantor.name}</p>
+            {guarantors.length > 0 ? (
+              guarantors.map((guarantor, index) => (
+                <Card key={index} className="bg-muted/50">
+                  <CardContent className="pt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <p className="text-sm text-muted-foreground">Name</p>
+                        <p className="font-medium">{guarantor.name}</p>
+                      </div>
+                      <div className="space-y-1">
+                        <p className="text-sm text-muted-foreground">CNIC</p>
+                        <p className="font-medium">{guarantor.cnic}</p>
+                      </div>
+                      <div className="space-y-1 md:col-span-2">
+                        <p className="text-sm text-muted-foreground">Email</p>
+                        <p className="font-medium">{guarantor.email}</p>
+                      </div>
                     </div>
-                    <div className="space-y-1">
-                      <p className="text-sm text-muted-foreground">CNIC</p>
-                      <p className="font-medium">{guarantor.cnic}</p>
-                    </div>
-                    <div className="space-y-1 md:col-span-2">
-                      <p className="text-sm text-muted-foreground">Email</p>
-                      <p className="font-medium">{guarantor.email}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-            {/* : (
-            <p className="text-muted-foreground text-sm">No guarantors added</p>
-            )} */}
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <p className="text-muted-foreground text-sm">No guarantors added</p>
+            )}
           </div>
         </div>
       </CardContent>
-    </Card>
+    </Card>)
   );
-};
+}
 
-export default ReviewApplication;
+export default ReviewApplication
+

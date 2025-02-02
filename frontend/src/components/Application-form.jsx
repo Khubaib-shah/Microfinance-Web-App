@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,6 +12,7 @@ import { useSearchParams } from "react-router-dom";
 import UserInfoForm from "./ApplicationForm/UserInfoForm";
 import GuarantorInfoForm from "./ApplicationForm/GuarantorInfoForm";
 import ReviewApplication from "./ApplicationForm/ReviewApplication";
+import { CreateLoan } from "@/services/user";
 
 export function ApplicationForm() {
   const [step, setStep] = useState(1);
@@ -20,7 +21,6 @@ export function ApplicationForm() {
   const category = searchParams.get("category");
   const subcategory = searchParams.get("subcategory");
   const amount = searchParams.get("amount");
-
   const [formData, setFormData] = useState({
     user: { name: "", cnic: "", email: "", phone: "", address: "" },
     guarantors: [
@@ -30,20 +30,26 @@ export function ApplicationForm() {
     category,
     subcategory,
     amount,
+    complainId: "",
   });
 
+  // for submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Generate a unique 6-digit complainId
+    const complainId = Math.floor(100000 + Math.random() * 900000);
+
+    // Update formData with the generated complainId
+    const updatedFormData = { ...formData, complainId };
+
     if (step < 3) {
       setStep(step + 1);
       return;
     }
+
     try {
-      const response = await fetch("https://localhost:4000/api/loan/loans", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await CreateLoan(updatedFormData);
       if (response.ok) {
         alert("Application submitted successfully!");
         setStep(1);

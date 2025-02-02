@@ -1,5 +1,4 @@
 import React from "react";
-import ApplyPage from "./ApplyPage";
 import { LoginForm } from "@/components/LoginForm";
 
 const LoginPage = () => {
