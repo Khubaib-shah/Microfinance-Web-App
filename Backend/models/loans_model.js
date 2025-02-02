@@ -34,7 +34,7 @@ const loanSchema = new Schema({
     },
   ],
   complainId: {
-    type: Number,
+    type: String,
     required: true,
   },
 
