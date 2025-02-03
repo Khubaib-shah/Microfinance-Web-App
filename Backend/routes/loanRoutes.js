@@ -29,8 +29,6 @@ router.post("/loans", async (req, res) => {
       return res.status(400).json({ message: "User details are required" });
     }
 
-    complainId;
-
     if (!category || !subcategory || !amount) {
       return res.status(400).json({ message: "Loan details are required" });
     }

@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import adminRoutes from "./routes/adminRoutes.js";
-import guarantorRoutes from "./routes/guarantorRoutes.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import loanRoutes from "./routes/loanRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -20,11 +19,17 @@ app.use(express.json());
 
 // Routes
 app.use("/api/admin", adminRoutes);
-app.use("/api/guarantor", guarantorRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/loan", loanRoutes);
 app.use("/api/user", userRoutes);
-app.use("/", (req, res) => res.json({ message: "Api is ok" }));
+app.use("/", (req, res) =>
+  res.json({
+    message: "Api is ok, Got to",
+    LoanRoutes: "/api/loan/loans",
+    AppointmentRoutes: "/api/appointment/appointment",
+    UserRoutes: "/api/user/users",
+  })
+);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
