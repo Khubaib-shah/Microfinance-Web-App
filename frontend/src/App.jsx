@@ -6,8 +6,7 @@ import { Navigation } from "./components/Navigation";
 import ApplyPage from "./pages/ApplyPage";
 import { Toaster } from "@/components/ui/toaster";
 import DashboardPage from "./pages/AdminDashboard";
-// import { ApplicationsTable } from "./components/ApplicationsTable";
-// import Applications from "./pages/Applications";
+import routes from "./routes";
 
 function App() {
   return (
@@ -15,13 +14,14 @@ function App() {
       <div className="min-h-screen bg-background text-foreground">
         <Navigation />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/apply" element={<ApplyPage />} />
-          {/* <Route path="/application" element={<Applications />} /> */}
-          <Route path="/admin" element={<DashboardPage />} />
-          {/* <Route path="/appointments" element={<ApplicationsTable />} /> */}
+          {/* <Route path="/admin" element={<DashboardPage />} /> */}
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<route.component />}
+            />
+          ))}
         </Routes>
         <Toaster />
       </div>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import useAuth from "@/hooks/useAuth";
+import routes from "@/routes";
 
 export function Navigation() {
   const { logout } = useAuth();
@@ -12,21 +13,15 @@ export function Navigation() {
           <span className="font-bold">Saylani Microfinance</span>
         </Link>
         <nav className="flex flex-1 items-center space-x-6 text-sm">
-          <Link to="/" className="transition-colors hover:text-foreground/80">
-            Home
-          </Link>
-          <Link
-            to="/login"
-            className="transition-colors hover:text-foreground/80"
-          >
-            Login
-          </Link>
-          <Link
-            to="/admin"
-            className="transition-colors hover:text-foreground/80"
-          >
-            Login
-          </Link>
+          {routes.map((route) => (
+            <Link
+              key={route.path}
+              to={route.path}
+              className="transition-colors hover:text-foreground/80"
+            >
+              {route.Value}
+            </Link>
+          ))}
         </nav>
       </div>
     </header>

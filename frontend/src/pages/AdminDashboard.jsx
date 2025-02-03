@@ -15,7 +15,7 @@ import { Search } from "@/components/ui/Search";
 import { UserNav } from "@/components/UserNav";
 import { MainNav } from "@/components/MainNav";
 
-export default function DashboardPage() {
+export default function AdminDashboard() {
   return (
     <>
       <div className="flex-col md:flex">
