@@ -1,5 +1,5 @@
-import { LoanCalculator } from "@/components/Loan-calculator";
-import { LoanCategories } from "@/components/Loan-categories";
+import { LoanCalculator } from "@/components/LoanCalculator";
+import { LoanCategories } from "@/components/LoanCategories";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 

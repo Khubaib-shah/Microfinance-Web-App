@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/hooks/use-toast";
 import { CreateUser } from "@/services/user";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function LoginForm() {
+  const { loading, setLoading } = useState(true);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -36,8 +37,24 @@ export function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
+      setError(false);
+      setErrorMessage("");
       await CreateUser(formData);
       console.log("User created successfully:", formData);
+      toast({
+        title: "Registration Successful 🎉",
+        description: "Welcome aboard! Your account has been created.",
+      });
+      setLoading(false);
+      setFormData({
+        cnic: "",
+        name: "",
+        email: "",
+        password: "",
+        phone: "",
+        address: "",
+      });
     } catch (error) {
       let ErrorMessage = error.response.data.error;
       if (ErrorMessage.includes("email")) {

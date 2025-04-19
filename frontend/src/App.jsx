@@ -11,7 +11,7 @@ import routes from "./routes";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-background text-foreground">
+      <div className="min-h-screen bg-background text-foreground bg-gray-50">
         <Navigation />
         <Routes>
           {/* <Route path="/admin" element={<DashboardPage />} /> */}

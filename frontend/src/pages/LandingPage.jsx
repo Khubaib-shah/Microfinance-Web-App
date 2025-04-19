@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
-import { LoanCategories } from "@/components/Loan-categories";
+import { LoanCategories } from "@/components/LoanCategories";
 import { Hero } from "@/components/Hero";
-import { LoanCalculator } from "@/components/Loan-calculator";
+import { LoanCalculator } from "@/components/LoanCalculator";
 import { Features } from "@/components/Features";
 
 const LandingPage = () => {
@@ -14,8 +14,8 @@ const LandingPage = () => {
     }
   };
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+    <div className="container mx-auto px-4 py-4  md:py-6 lg:py-16">
+      <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-center text-gray-800">
         Welcome to Saylani Microfinance
       </h1>
 
@@ -29,7 +29,7 @@ const LandingPage = () => {
           <ul className="space-y-4">
             <li>
               <Link
-                to="/loans/wedding"
+                to="/"
                 className="text-gray-600 hover:text-gray-800 font-medium transition-colors duration-300"
               >
                 Wedding Loans
@@ -37,7 +37,7 @@ const LandingPage = () => {
             </li>
             <li>
               <Link
-                to="/loans/home"
+                to="/"
                 className="text-gray-600 hover:text-gray-800 font-medium transition-colors duration-300"
               >
                 Home Construction Loans
@@ -45,7 +45,7 @@ const LandingPage = () => {
             </li>
             <li>
               <Link
-                to="/loans/business"
+                to="/"
                 className="text-gray-600 hover:text-gray-800 font-medium transition-colors duration-300"
               >
                 Business Startup Loans
@@ -53,7 +53,7 @@ const LandingPage = () => {
             </li>
             <li>
               <Link
-                to="/loans/education"
+                to="/"
                 className="text-gray-600 hover:text-gray-800 font-medium transition-colors duration-300"
               >
                 Education Loans
@@ -64,7 +64,7 @@ const LandingPage = () => {
           <div className="mt-6">
             <Button asChild className="w-full md:w-auto mt-6">
               <Link
-                to="/apply"
+                to="/"
                 className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-all duration-200"
               >
                 Apply for a Loan
@@ -73,7 +73,6 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Loan Categories Component (Will take 3 columns) */}
         <div className="md:col-span-3">
           <LoanCategories />
           <LoanCalculator />

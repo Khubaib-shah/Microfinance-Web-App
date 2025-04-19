@@ -9,9 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useSearchParams } from "react-router-dom";
-import UserInfoForm from "./ApplicationForm/UserInfoForm";
-import GuarantorInfoForm from "./ApplicationForm/GuarantorInfoForm";
-import ReviewApplication from "./ApplicationForm/ReviewApplication";
+import UserInfoForm from "./UserInfoForm";
+import GuarantorInfoForm from "./GuarantorInfoForm";
+import ReviewApplication from "./ReviewApplication";
 import { CreateLoan } from "@/services/user";
 import { useToast } from "@/hooks/use-toast";
 

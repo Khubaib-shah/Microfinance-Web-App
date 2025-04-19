@@ -9,11 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { Overview } from "@/components/Overview";
-import { RecentApplications } from "@/components/RecentApplications";
+import { Overview } from "@/components/AdminDashboard/Overview";
+import { RecentApplications } from "@/components/AdminDashboard/RecentApplications";
 import { Search } from "@/components/ui/Search";
-import { UserNav } from "@/components/UserNav";
-import { MainNav } from "@/components/MainNav";
+import { UserNav } from "@/components/AdminDashboard/UserNav";
+import { MainNav } from "@/components/AdminDashboard/MainNav";
 
 export default function AdminDashboard() {
   return (

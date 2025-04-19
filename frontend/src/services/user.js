@@ -15,6 +15,7 @@ export const CreateUser = async (formData) => {
   try {
     const response = await apiClient.post("/api/user/users", formData);
     console.log("Form data submitted successfully:", response.data);
+
     return response.data;
   } catch (error) {
     console.error(

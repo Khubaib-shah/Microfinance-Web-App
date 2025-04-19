@@ -37,15 +37,12 @@ const categories = [
 
 export function LoanCategories() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-white dark:bg-gray-900">
-      <div className="container px-4 md:px-6">
+    <section className="w-full py-8 md:py-12 lg:py-12 bg-white dark:bg-gray-900">
+      <div className="">
         <h2 className="mb-12 text-center text-3xl font-bold">
           Loan Categories
         </h2>
-        <Link
-          to={"/apply"}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-        >
+        <Link to={"/"} className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {categories.map((category) => (
             <Card
               key={category.title}
