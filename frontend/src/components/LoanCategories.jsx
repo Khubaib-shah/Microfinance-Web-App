@@ -5,35 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Building2, GraduationCap, Home, PartyPopper } from "lucide-react";
-import { Link } from "react-router-dom";
+import { categories } from "@/lib/data";
 
-const categories = [
-  {
-    title: "Wedding Loans",
-    description: "Up to PKR 5 Lakh for 3 years",
-    icon: PartyPopper,
-    subcategories: ["Valima", "Furniture", "Valima Food", "Jahez"],
-  },
-  {
-    title: "Home Construction",
-    description: "Up to PKR 10 Lakh for 5 years",
-    icon: Home,
-    subcategories: ["Structure", "Finishing", "Loan"],
-  },
-  {
-    title: "Business Startup",
-    description: "Up to PKR 10 Lakh for 5 years",
-    icon: Building2,
-    subcategories: ["Buy Stall", "Advance Rent", "Shop Assets", "Machinery"],
-  },
-  {
-    title: "Education Loans",
-    description: "Based on requirement for 4 years",
-    icon: GraduationCap,
-    subcategories: ["University Fees", "Child Fees Loan"],
-  },
-];
+import { Link } from "react-router-dom";
+categories;
 
 export function LoanCategories() {
   return (
@@ -46,7 +21,7 @@ export function LoanCategories() {
           {categories.map((category) => (
             <Card
               key={category.title}
-              className="transition-all hover:shadow-lg"
+              className="transition-all hover:shadow-lg cursor-default"
             >
               <CardHeader>
                 <div className="mb-4 inline-block rounded-lg bg-primary/10 p-3">

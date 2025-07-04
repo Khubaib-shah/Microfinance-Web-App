@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 const ReviewApplication = ({ formData = {} }) => {
-  // Default values for user data
+  console.log(formData);
   const userData = formData.user || {
     name: "",
     cnic: "",
@@ -22,19 +22,16 @@ const ReviewApplication = ({ formData = {} }) => {
     complainId: "",
   };
 
-  // Default values for loan details
   const loanData = {
     category: formData.category || "",
     subcategory: formData.subcategory || "",
     amount: formData.amount || 0,
   };
 
-  // Default values for guarantors
   const guarantors = formData.guarantors || [];
 
   return (
     <>
-      {/* User Details Section */}
       <div className="space-y-4 mb-4">
         <div className="flex items-center gap-2">
           <User className="h-5 w-5 text-muted-foreground" />
@@ -72,7 +69,6 @@ const ReviewApplication = ({ formData = {} }) => {
         </div>
       </div>
 
-      {/* Loan Details Section */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <CreditCard className="h-5 w-5 text-muted-foreground" />
@@ -101,7 +97,6 @@ const ReviewApplication = ({ formData = {} }) => {
         </div>
       </div>
 
-      {/* Guarantor Details Section */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <UserCheck className="h-5 w-5 text-muted-foreground" />

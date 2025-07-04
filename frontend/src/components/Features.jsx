@@ -1,27 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
-
-const features = [
-  {
-    title: "Interest-Free Loans",
-    description:
-      "All loans are provided under the Islamic principle of Qarze Hasana with no interest charges.",
-  },
-  {
-    title: "Quick Processing",
-    description:
-      "Get your loan approved quickly with our streamlined application process.",
-  },
-  {
-    title: "Flexible Repayment",
-    description:
-      "Choose a repayment plan that works best for your financial situation.",
-  },
-  {
-    title: "Multiple Categories",
-    description:
-      "Whether it's education, business, or personal needs, we have you covered.",
-  },
-];
+import { features } from "@/lib/data";
 
 export function Features() {
   return (

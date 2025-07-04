@@ -14,7 +14,6 @@ function App() {
       <div className="min-h-screen bg-background text-foreground bg-gray-50">
         <Navigation />
         <Routes>
-          {/* <Route path="/admin" element={<DashboardPage />} /> */}
           {routes.map((route) => (
             <Route
               key={route.path}

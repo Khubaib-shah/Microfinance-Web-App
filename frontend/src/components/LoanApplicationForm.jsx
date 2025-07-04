@@ -42,12 +42,13 @@ const categories = {
   },
 };
 
-export function LoanCalculator() {
+export function LoanApplicationForm() {
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [amount, setAmount] = useState("");
   const [deposit, setDeposit] = useState("");
   const [period, setPeriod] = useState("");
+
   const navigate = useNavigate();
   const handleProceed = async () => {
     navigate(
@@ -57,13 +58,21 @@ export function LoanCalculator() {
 
   const selectedCategory = category ? categories[category] : null;
 
+  const handlePeriodChange = (e) => {
+    let periodValue = e.target.value;
+    if (periodValue > selectedCategory?.period) {
+      setPeriod(selectedCategory?.period);
+    } else {
+      setPeriod(periodValue);
+    }
+  };
   return (
-    <Card className="w-full" id="calculator">
+    <Card className="w-full" id="calculator-section">
       <CardHeader>
-        <CardTitle>Calculate Your Loan</CardTitle>
+        <CardTitle>Apply For you Loan</CardTitle>
         <CardDescription>
-          Choose your loan category and enter details to calculate monthly
-          payments
+          Choose your loan category and enter details to proceed with the
+          application.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -136,7 +145,7 @@ export function LoanCalculator() {
             type="number"
             placeholder="Enter period"
             value={period}
-            onChange={(e) => setPeriod(e.target.value)}
+            onChange={handlePeriodChange}
             max={selectedCategory?.period}
           />
           {selectedCategory && (
@@ -153,7 +162,7 @@ export function LoanCalculator() {
             <p className="text-sm text-muted-foreground">
               Monthly Payment: PKR{" "}
               {Math.round(
-                (Number(amount) - Number(deposit)) / Number(period)
+                (Number(amount) - Number(deposit)) / Number(period) / 12
               ).toLocaleString()}
             </p>
             <p className="text-sm text-muted-foreground">
