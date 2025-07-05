@@ -21,14 +21,14 @@ app.use("/api/appointment", appointmentRoutes);
 app.use("/api/loan", loanRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/", (req, res) =>
-  res.json({
-    message: "Api is ok, Got to",
-    LoanRoutes: "/api/loan/loans",
-    AppointmentRoutes: "/api/appointment/appointment",
-    UserRoutes: "/api/user/users",
-  })
-);
+// app.get("/", (req, res) =>
+//   res.json({
+//     message: "Api is ok, Got to",
+//     LoanRoutes: "/api/loan/loans",
+//     AppointmentRoutes: "/api/appointment/appointment",
+//     UserRoutes: "/api/user/users",
+//   })
+// );
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

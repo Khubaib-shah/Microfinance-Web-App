@@ -7,17 +7,17 @@ import LoginUser from "./pages/LoginUser";
 import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
-  const user = localStorage.getItem("user");
-  if (user) {
-    const parsedUser = JSON.parse(user);
-    if (parsedUser.role === "admin") {
-      routes.push({
-        path: "/admin",
-        component: AdminDashboard,
-        Value: "Dashboard",
-      });
-    }
-  }
+  // const user = localStorage.getItem("user");
+  // if (user) {
+  //   const parsedUser = JSON.parse(user);
+  //   if (parsedUser.role === "admin") {
+  //     routes.push({
+  //       path: "/admin",
+  //       component: AdminDashboard,
+  //       Value: "Dashboard",
+  //     });
+  //   }
+  // }
 
   return (
     <Router>

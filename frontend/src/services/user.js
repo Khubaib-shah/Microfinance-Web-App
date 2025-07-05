@@ -11,7 +11,7 @@ const apiClient = axios.create({
 
 export const CreateUser = async (formData) => {
   try {
-    const response = await apiClient.post("/api/user/register", formData);
+    const response = await apiClient.post("/api/auth/register", formData);
     console.log("Form data submitted successfully:", response.data);
 
     return response.data;
@@ -26,7 +26,7 @@ export const CreateUser = async (formData) => {
 
 export const LoginUser = async (formData) => {
   try {
-    const response = await apiClient.post("/api/user/login", formData);
+    const response = await apiClient.post("/api/auth/login", formData);
     console.log("Form data submitted successfully:", response.data);
 
     return response.data;

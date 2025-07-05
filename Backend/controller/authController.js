@@ -47,10 +47,11 @@ const loginUser = async (req, res) => {
     const { email, password, phone } = req.body;
 
     console.log("Received data:", {
-      email,
-      password,
-      phone,
+      email: email,
+      password: password,
+      phone: phone,
     });
+
     if (!email || !password || !phone) {
       return res.status(400).json({
         success: false,
