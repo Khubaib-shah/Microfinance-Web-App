@@ -1,8 +1,6 @@
-// Users Model for MongoDB using Mongoose
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-// Define the schema for the Users collection
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -17,7 +15,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
   },
   cnic: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
     trim: true,
@@ -46,7 +44,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Middleware to update the updatedAt field on save
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -56,7 +53,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Create the model
 const User = mongoose.model("User", userSchema);
 
 export default User;

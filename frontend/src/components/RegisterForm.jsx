@@ -12,11 +12,12 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { CreateUser } from "@/services/user";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export function LoginForm() {
-  const { loading, setLoading } = useState(true);
+export function RegisterForm() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { loading, setLoading } = useState(false);
   const [formData, setFormData] = useState({
     cnic: "",
     name: "",
@@ -25,6 +26,7 @@ export function LoginForm() {
     phone: "",
     address: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -37,7 +39,7 @@ export function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      // setLoading(true);
       setError(false);
       setErrorMessage("");
       await CreateUser(formData);
@@ -46,7 +48,7 @@ export function LoginForm() {
         title: "Registration Successful 🎉",
         description: "Welcome aboard! Your account has been created.",
       });
-      setLoading(false);
+      // setLoading(false);
       setFormData({
         cnic: "",
         name: "",
@@ -55,12 +57,14 @@ export function LoginForm() {
         phone: "",
         address: "",
       });
+      navigate("/login");
     } catch (error) {
-      let ErrorMessage = error.response.data.error;
-      if (ErrorMessage.includes("email")) {
-        setErrorMessage("User with this email is already register");
-        setError(true);
-      }
+      let ErrorMessage = error.response;
+      console.log(ErrorMessage);
+      // if (ErrorMessage.includes("email")) {
+      //   setErrorMessage("User with this email is already register");
+      setError(true);
+      // }
       console.error("Error creating user:", error);
     }
   };
@@ -68,21 +72,11 @@ export function LoginForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Register</CardTitle>
+        <CardTitle className="text-3xl">Register</CardTitle>
         <CardDescription>Please provide your basic information</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="cnic">CNIC Number</Label>
-            <Input
-              id="cnic"
-              required
-              placeholder="Enter CNIC number"
-              value={formData.cnic}
-              onChange={handleChange}
-            />
-          </div>
           <div className="space-y-2">
             <Label htmlFor="name">Full Name</Label>
             <Input
@@ -101,6 +95,16 @@ export function LoginForm() {
               required
               placeholder="Enter email address"
               value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="cnic">CNIC Number</Label>
+            <Input
+              id="cnic"
+              required
+              placeholder="Enter CNIC number"
+              value={formData.cnic}
               onChange={handleChange}
             />
           </div>
@@ -136,11 +140,33 @@ export function LoginForm() {
             />
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex gap-4">
           {error && <CardDescription>{errorMessage}</CardDescription>}
 
-          <Button type="submit" className="ml-auto">
-            Register
+          <Button
+            variant="secondary"
+            className="w-6/12"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </Button>
+          <Button
+            type="submit"
+            disabled={loading}
+            className={`w-full
+              ${
+                formData.cnic === "" ||
+                formData.name === "" ||
+                formData.email === "" ||
+                formData.password === "" ||
+                formData.phone === "" ||
+                formData.address === ""
+                  ? "opacity-75 cursor-not-allowed"
+                  : ""
+              }
+              ${loading ? "animate-pulse cursor-not-allowed" : ""}`}
+          >
+            {loading ? "Registering..." : "Register"}
           </Button>
         </CardFooter>
       </form>

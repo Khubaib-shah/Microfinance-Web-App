@@ -1,14 +1,24 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import { Navigation } from "./components/Navigation";
-import ApplyPage from "./pages/ApplyPage";
 import { Toaster } from "@/components/ui/toaster";
-import DashboardPage from "./pages/AdminDashboard";
 import routes from "./routes";
+import RegisterUser from "./pages/RegisterUser";
+import LoginUser from "./pages/LoginUser";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
+  const user = localStorage.getItem("user");
+  if (user) {
+    const parsedUser = JSON.parse(user);
+    if (parsedUser.role === "admin") {
+      routes.push({
+        path: "/admin",
+        component: AdminDashboard,
+        Value: "Dashboard",
+      });
+    }
+  }
+
   return (
     <Router>
       <div className="min-h-screen bg-background text-foreground bg-gray-50">
@@ -21,6 +31,9 @@ function App() {
               element={<route.component />}
             />
           ))}
+          <Route path="/register" element={<RegisterUser />} />
+          <Route path="/login" element={<LoginUser />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
         <Toaster />
       </div>
