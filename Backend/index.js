@@ -6,6 +6,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import loanRoutes from "./routes/loanRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -18,7 +19,8 @@ app.use(express.json());
 app.use("/api/admin", adminRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/loan", loanRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/", (req, res) =>
   res.json({
     message: "Api is ok, Got to",
