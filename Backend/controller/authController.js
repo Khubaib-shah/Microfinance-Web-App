@@ -92,6 +92,15 @@ const loginUser = async (req, res) => {
     res.status(200).json({
       success: true,
       message: `Welcome back ${existingUser.name}`,
+      user: {
+        id: existingUser._id,
+        name: existingUser.name,
+        email: existingUser.email,
+        cnic: existingUser.cnic,
+        phone: existingUser.phone,
+        address: existingUser.address,
+        role: existingUser.role,
+      },
       token,
     });
   } catch (error) {

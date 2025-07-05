@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast, useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { LoginUser } from "@/services/user";
 import { useNavigate } from "react-router-dom";
 
@@ -45,7 +45,13 @@ const LoginUserPage = () => {
         title: "Registration Successful",
         description: "Your account has been created successfully.",
       });
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem(
+        "Token",
+        JSON.stringify({
+          user: data.user,
+          token: data.token,
+        })
+      );
       navigate("/admin");
     } catch (error) {
       console.error("Registration failed:", error);

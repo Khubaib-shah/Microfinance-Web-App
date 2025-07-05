@@ -18,29 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
-
-const categories = {
-  "Wedding Loans": {
-    maxAmount: 500000,
-    period: 3,
-    subcategories: ["Valima", "Furniture", "Valima Food", "Jahez"],
-  },
-  "Home Construction": {
-    maxAmount: 1000000,
-    period: 5,
-    subcategories: ["Structure", "Finishing", "Loan"],
-  },
-  "Business Startup": {
-    maxAmount: 1000000,
-    period: 5,
-    subcategories: ["Buy Stall", "Advance Rent", "Shop Assets", "Machinery"],
-  },
-  "Education Loans": {
-    maxAmount: 1000000,
-    period: 4,
-    subcategories: ["University Fees", "Child Fees Loan"],
-  },
-};
+import { categoriesCal } from "@/lib/data";
 
 export function LoanCalculator() {
   const [category, setCategory] = useState("");
@@ -55,7 +33,7 @@ export function LoanCalculator() {
     );
   };
 
-  const selectedCategory = category ? categories[category] : null;
+  const selectedCategory = category ? categoriesCal[category] : null;
 
   return (
     <Card className="w-full" id="calculator">
@@ -74,7 +52,7 @@ export function LoanCalculator() {
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent>
-              {Object.keys(categories).map((cat) => (
+              {Object.keys(categoriesCal).map((cat) => (
                 <SelectItem key={cat} value={cat}>
                   {cat}
                 </SelectItem>

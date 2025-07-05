@@ -50,4 +50,26 @@ const features = [
   },
 ];
 
-export { categories, features };
+const categoriesCal = {
+  "Wedding Loans": {
+    maxAmount: 500000,
+    period: 3,
+    subcategories: ["Valima", "Furniture", "Valima Food", "Jahez"],
+  },
+  "Home Construction": {
+    maxAmount: 1000000,
+    period: 5,
+    subcategories: ["Structure", "Finishing", "Loan"],
+  },
+  "Business Startup": {
+    maxAmount: 1000000,
+    period: 5,
+    subcategories: ["Buy Stall", "Advance Rent", "Shop Assets", "Machinery"],
+  },
+  "Education Loans": {
+    maxAmount: 1000000,
+    period: 4,
+    subcategories: ["University Fees", "Child Fees Loan"],
+  },
+};
+export { categories, features, categoriesCal };
